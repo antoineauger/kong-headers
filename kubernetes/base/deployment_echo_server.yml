@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-server
+  labels:
+    app.kubernetes.io/component: echo-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: echo-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: echo-server
+    spec:
+      containers:
+        - image: k8s.gcr.io/echoserver:1.10
+          name: echo-server
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"

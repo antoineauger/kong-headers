@@ -1,0 +1,9 @@
+resources:
+  #- cluster_plugins_kong.yml
+  - ingress_admin.yml
+  - service_echo_server.yml
+  - deployment_echo_server.yml
+  - ingress_echo_server.yml
+
+commonAnnotations:
+  kubernetes.io/ingress.class: kong

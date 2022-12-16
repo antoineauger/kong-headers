@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echo-server
+  labels:
+    app.kubernetes.io/component: echo-server
+  annotations:
+    konghq.com/protocols: http
+    konghq.com/strip-path: "true"
+spec:
+  tls:
+    - hosts:
+        - localhost
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: /echo-server
+            pathType: Prefix
+            backend:
+              service:
+                name: echo-server
+                port:
+                  number: 8080

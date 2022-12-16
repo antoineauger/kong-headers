@@ -1,0 +1,22 @@
+helmCharts:
+  # https://github.com/Kong/charts/blob/main/charts/kong/README.md
+  - name: kong
+    namespace: kong
+    includeCRDs: true
+    releaseName: ingress
+    version: 2.13.1
+    repo: https://charts.konghq.com
+    valuesFile: kong-values.yml
+
+resources:
+  - ../base
+
+labels:
+  - pairs:
+      app.kubernetes.io/version: main
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/created-by: developer
+    includeSelectors: false
+
+commonAnnotations:
+  kubernetes.io/ingress.class: kong

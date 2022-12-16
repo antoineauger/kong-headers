@@ -1,0 +1,26 @@
+namespace: kong
+
+env:
+  database: postgres
+  # Disable kong specific http headers
+  headers: "off"
+  # Disable telemetry
+  anonymous_reports: "off"
+
+postgresql:
+  enabled: true
+  auth:
+    password: kong
+
+admin:
+  enabled: true
+  http:
+    enabled: true
+    servicePort: 8001
+    containerPort: 8001
+
+ingressController:
+  enabled: true
+  env:
+    # Disable telemetry
+    anonymous_reports: "false"

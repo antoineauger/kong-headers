@@ -1,0 +1,37 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongClusterPlugin
+metadata:
+  name: security-headers
+  labels:
+    global: "true"
+    app.kubernetes.io/component: kong-cluster-plugins
+plugin: response-transformer
+config:
+  add:
+    headers:
+      - Strict-Transport-Security:max-age=31536000
+      - Content-Security-Policy:frame-ancestors 'none';
+      - X-Content-Type-Options:nosniff
+      - X-Frame-Options:DENY
+  remove:
+    headers:
+      - Kong-Route-Id
+      - Kong-Route-Name
+      - Kong-Service-Id
+      - Kong-Service-Name
+      - Server
+
+---
+
+apiVersion: configuration.konghq.com/v1
+kind: KongClusterPlugin
+metadata:
+  name: remove-debug-headers
+  labels:
+    global: "true"
+    app.kubernetes.io/component: kong-cluster-plugins
+plugin: request-transformer
+config:
+  remove:
+    headers:
+      - kong-debug
